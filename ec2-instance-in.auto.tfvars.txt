@@ -1,0 +1,51 @@
+1.main.tf file data
+
+resource "aws_instance" "instid" {
+  ami             = var.aws_instance_ami
+  key_name      = var.aws_instance_key
+  subnet_id     = var.aws_instance_subnet
+  instance_type = var.aws_instance_instancetype
+  user_data     = <<-EOF
+  #!bin/bash
+  echo "hello akanksha"
+  apt-get install -y nginx
+  service start nginx 
+  EOF
+
+  tags = {
+    Name = var.aws_instance_tag
+  }
+}
+
+2.variable.tf data 
+
+
+variable "aws_instance_ami" { 
+type = string
+}
+
+variable "aws_instance_key" {
+ type = string
+}
+
+variable "aws_instance_subnet" {
+type = string
+}
+
+variable "aws_instance_instancetype" {
+type = string
+}
+
+variable "aws_instance_tag" {
+type = string
+}
+
+3.variable.auto.tfvars file data
+
+
+aws_instance_ami="ami-0171207a7acd2a570"
+aws_instance_key="london.key"
+aws_instance_subnet="subnet-02d728e0eafb4b1d0"
+aws_instance_instancetype="t2.micro"
+aws_instance_tag="terraform"
+
